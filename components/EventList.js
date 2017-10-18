@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Platform } from 'react-native'
 import { connect } from 'react-redux'
 
 
@@ -23,7 +23,10 @@ const styles = StyleSheet.create( {
   header: {
     color: white,
     backgroundColor: darkGrey,
-    fontFamily: 'monospace',
+    fontFamily: Platform.select( {
+      ios: 'Courier New',
+      android: 'monospace'
+    } ),
     alignSelf: 'flex-start',
     fontSize: 24
   },

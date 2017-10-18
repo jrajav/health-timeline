@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Platform } from 'react-native'
 
 import {
   StyleSheet,
@@ -6,6 +7,7 @@ import {
   Image,
   View,
   Text,
+  TouchableHighlight,
   TouchableNativeFeedback
 } from 'react-native'
 
@@ -48,7 +50,10 @@ const styles = StyleSheet.create( {
   time: {
     textAlign: 'right',
     color: defaultTimeTextColor,
-    fontFamily: 'monospace'
+    fontFamily: Platform.select( {
+      ios: 'Courier New',
+      android: 'monospace'
+    } )
   },
   timeWrapper: {
     alignItems: 'flex-end'
@@ -162,9 +167,15 @@ export default class Timeline extends Component {
     const handlePress = () => this.props.onEventPress ? this.props.onEventPress( rowData ) : null
 
 
+    const TouchEl = Platform.select( {
+      ios: TouchableHighlight,
+      android: TouchableNativeFeedback
+    } )
+
+
     return (
       <View style={ [ styles.details, opStyle ] } onLayout={ handleLayout }>
-        <TouchableNativeFeedback
+        <TouchEl
           disabled={ !this.props.onEventPress }
           style={ [ this.props.detailContainerStyle ] }
           onPress={ handlePress }
@@ -172,7 +183,7 @@ export default class Timeline extends Component {
           <View style={ styles.rowDetail }>
             { this.renderDetail( rowData, sectionID, rowID ) }
           </View>
-        </TouchableNativeFeedback>
+        </TouchEl>
         <View>
           { this._renderSeparator() }
         </View>

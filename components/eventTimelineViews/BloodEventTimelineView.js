@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text } from 'react-native'
+import { StyleSheet, View, Text, Platform } from 'react-native'
 
 import { MKRangeSlider } from 'react-native-material-kit'
 
@@ -8,7 +8,10 @@ const styles = StyleSheet.create( {
   title: {
     fontSize: 16,
     fontWeight: 'bold',
-    fontFamily: 'Roboto',
+    fontFamily: Platform.select( {
+      ios: 'System',
+      android: 'Roboto'
+    } ),
     letterSpacing: 0.5,
     paddingTop: 0,
     marginTop: 0
